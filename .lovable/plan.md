@@ -1,28 +1,27 @@
 
 
-## Update How It Works Section Images
+## Replace Icons with Images in Benefits Section
 
-Replace the current generic Unsplash images for each treatment stage with contextually relevant water treatment images from Unsplash/Pexels.
+Replace the Lucide icon boxes in each of the 6 benefit cards with relevant water treatment images, making the cards more visually impactful.
 
-### Image Replacements
+### Changes (single file: `src/pages/Index.tsx`)
 
-| Step | Current | New Image Theme |
-|------|---------|----------------|
-| 100 Micron Automatic Filtration | Generic lab image | Industrial automatic strainer/mesh filter equipment |
-| Clintoptilolite Filtration | Generic filter | Natural zeolite mineral media / granular filter bed |
-| Alumino Silicate Filter | Generic | Glass bead media / sand filtration vessel |
-| Initial pH Correction | Generic chemistry | pH meter / chemical dosing panel |
-| Antiscalant Dosing System | Generic pharma | Chemical dosing pump / metering system |
-| Micron Filtration Stage 1 | Generic filter | Cartridge filter housing / sediment filters |
-| Micron Filtration Stage 2 | Generic | Pleated cartridge filters close-up |
-| XFR Membrane Filtration | Generic | RO membrane modules / pressure vessels |
-| Final pH Correction | Generic lab | pH testing / water quality lab analysis |
-| Disinfection System | Generic | UV disinfection chamber / UV water treatment |
+**Lines 291-297** — Update the benefits data array:
+- Remove the `Icon` and `iconClass` properties from each benefit object
+- Keep existing `bgImg` URLs as the subtle background
+- Add a new `img` property with a prominent, contextually relevant image URL for each card:
+  - **Zero CapEx** -- pay-per-use / industrial equipment image
+  - **65% Chemical Reduction** -- chemical lab / water testing image
+  - **Real-Time Monitoring** -- IoT dashboard / digital monitoring image
+  - **Extended Asset Life** -- clean cooling tower / pristine equipment image
+  - **ZLD Compliant** -- water recycling / treatment plant image
+  - **Reduced Blowdown** -- water conservation / flow image
 
-### Technical Details
+**Lines 302-304** — Replace the icon container with an image element:
+- Remove the `<div>` containing `<ben.Icon>` 
+- Replace with a rounded image element (e.g., `<img src={ben.img} className="w-16 h-16 rounded-2xl object-cover ...">`) styled to match the current icon box dimensions and rounded corners
+- Keep the hover scale animation on the image container
 
-- Update the `img` URLs in the `methodologyStages` array (lines 406-416 in `src/pages/Index.tsx`)
-- Each image will be sourced from Unsplash with `auto=format&fit=crop&q=80&w=800` parameters for consistent sizing
-- Odour Reduction Filter (line 410) is not mentioned in the request, so it will remain unchanged
-- No structural code changes needed -- only URL string replacements
+### Result
+Each benefit card will show a small, relevant water treatment photo where the icon used to be, while keeping the subtle background image overlay, title, and description unchanged.
 
