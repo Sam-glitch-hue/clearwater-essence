@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import heroVideo from '@/assets/hero-water-treatment.mp4';
 import step100Micron from '@/assets/step-100micron.jpg';
+import benefitZeroCapex from '@/assets/benefit-zero-capex.jpg';
+import benefitChemicalReduction from '@/assets/benefit-chemical-reduction.jpg';
+import benefitMonitoring from '@/assets/benefit-monitoring.jpg';
+import benefitAssetLife from '@/assets/benefit-asset-life.jpg';
+import benefitZld from '@/assets/benefit-zld.jpg';
+import benefitBlowdown from '@/assets/benefit-blowdown.jpg';
 import stepClinoptilolite from '@/assets/step-clinoptilolite.jpg';
 import stepAluminosilicate from '@/assets/step-aluminosilicate.jpg';
 import stepPhCorrection from '@/assets/step-ph-correction.jpg';
@@ -289,19 +295,17 @@ const HomeBenefits = () => (
     </div>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
       {[
-        { Icon: PiggyBank, iconClass: "text-blue-600", title: "Zero CapEx", desc: "Our Pay-Per-Use model eliminates upfront investment and maintenance burdens.", bgImg: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600" },
-        { Icon: TestTube, iconClass: "text-cyan-600", title: "65% Chemical Reduction", desc: "Exceptionally low TDS water reduces the need for chemicals in cooling towers.", bgImg: "https://images.unsplash.com/photo-1532187863486-abf920a789cd?auto=format&fit=crop&q=80&w=600" },
-        { Icon: Activity, iconClass: "text-sky-600", title: "Real-Time Monitoring", desc: "Our IoT systems allow constant tracking of water quality, ensuring consistency.", bgImg: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600" },
-        { Icon: Layers, iconClass: "text-indigo-500", title: "Extended Asset Life", desc: "Cooling tower fills and condensers remain pristine, significantly extending asset life.", bgImg: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=600" },
-        { Icon: ShieldCheck, iconClass: "text-blue-500", title: "ZLD Compliant", desc: "Waste water is sent back to the STP inlet, ensuring Zero Liquid Discharge compliance.", bgImg: "https://images.unsplash.com/photo-1580894894513-541e068a3e2b?auto=format&fit=crop&q=80&w=600" },
-        { Icon: Droplets, iconClass: "text-cyan-500", title: "Reduced Blowdown", desc: "Blowdown loss is practically eliminated, saving millions of litres monthly.", bgImg: "https://images.unsplash.com/photo-1468421870903-4df1664ac249?auto=format&fit=crop&q=80&w=600" }
+        { img: benefitZeroCapex, title: "Zero CapEx", desc: "Our Pay-Per-Use model eliminates upfront investment and maintenance burdens.", bgImg: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600" },
+        { img: benefitChemicalReduction, title: "65% Chemical Reduction", desc: "Exceptionally low TDS water reduces the need for chemicals in cooling towers.", bgImg: "https://images.unsplash.com/photo-1532187863486-abf920a789cd?auto=format&fit=crop&q=80&w=600" },
+        { img: benefitMonitoring, title: "Real-Time Monitoring", desc: "Our IoT systems allow constant tracking of water quality, ensuring consistency.", bgImg: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600" },
+        { img: benefitAssetLife, title: "Extended Asset Life", desc: "Cooling tower fills and condensers remain pristine, significantly extending asset life.", bgImg: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=600" },
+        { img: benefitZld, title: "ZLD Compliant", desc: "Waste water is sent back to the STP inlet, ensuring Zero Liquid Discharge compliance.", bgImg: "https://images.unsplash.com/photo-1580894894513-541e068a3e2b?auto=format&fit=crop&q=80&w=600" },
+        { img: benefitBlowdown, title: "Reduced Blowdown", desc: "Blowdown loss is practically eliminated, saving millions of litres monthly.", bgImg: "https://images.unsplash.com/photo-1468421870903-4df1664ac249?auto=format&fit=crop&q=80&w=600" }
       ].map((ben, idx) => (
         <div key={idx} className="relative bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-[2rem] border border-slate-200/60 hover:shadow-xl hover:-translate-y-1 transition-all group shadow-sm overflow-hidden">
           <img src={ben.bgImg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] group-hover:opacity-[0.1] transition-opacity duration-500 pointer-events-none" />
           <div className="relative z-10">
-            <div className="bg-slate-50/90 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
-              <ben.Icon size={28} className={ben.iconClass} />
-            </div>
+            <img src={ben.img} alt={ben.title} className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover mb-4 sm:mb-6 shadow-sm border border-slate-100 group-hover:scale-110 transition-transform" />
             <h3 className="text-xl font-bold mb-3 uppercase tracking-tight">{ben.title}</h3>
             <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">{ben.desc}</p>
           </div>
