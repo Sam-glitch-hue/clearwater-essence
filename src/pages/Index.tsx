@@ -1129,14 +1129,14 @@ const Footer = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => 
 
 // --- WhatsApp ---
 const WhatsAppButton = () => (
-  <a href="https://wa.me/918073182542" target="_blank" rel="noreferrer" className="fixed bottom-8 right-8 z-50 hover:scale-110 transition-transform group">
-    <div className="relative p-4 rounded-full flex items-center justify-center bg-gradient-to-br from-[#25D366] via-[#20BA5C] to-[#128C7E] shadow-[0_4px_24px_rgba(37,211,102,0.5)] border-2 border-white/30 overflow-hidden">
+  <a href="https://wa.me/918073182542" target="_blank" rel="noreferrer" className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-50 hover:scale-110 transition-transform group">
+    <div className="relative p-3 sm:p-4 rounded-full flex items-center justify-center bg-gradient-to-br from-[#25D366] via-[#20BA5C] to-[#128C7E] shadow-[0_2px_16px_rgba(37,211,102,0.4)] sm:shadow-[0_4px_24px_rgba(37,211,102,0.5)] border border-white/30 sm:border-2 overflow-hidden">
       {/* Watery ripple effects */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-t from-white/10 to-transparent"></div>
-      <div className="absolute -bottom-2 -left-2 w-10 h-10 bg-white/15 rounded-full blur-sm animate-pulse"></div>
-      <div className="absolute -top-1 -right-1 w-6 h-6 bg-cyan-200/20 rounded-full blur-sm animate-pulse [animation-delay:0.5s]"></div>
+      <div className="absolute -bottom-2 -left-2 w-7 h-7 sm:w-10 sm:h-10 bg-white/15 rounded-full blur-sm animate-pulse"></div>
+      <div className="absolute -top-1 -right-1 w-4 h-4 sm:w-6 sm:h-6 bg-cyan-200/20 rounded-full blur-sm animate-pulse [animation-delay:0.5s]"></div>
       <div className="absolute inset-0 rounded-full shadow-[inset_0_-4px_8px_rgba(0,0,0,0.15),inset_0_2px_4px_rgba(255,255,255,0.2)]"></div>
-      <MessageSquare size={32} strokeWidth={2} className="relative z-10 text-white drop-shadow-md" />
+      <MessageSquare className="relative z-10 text-white drop-shadow-md w-6 h-6 sm:w-8 sm:h-8" strokeWidth={2} />
     </div>
   </a>
 );
