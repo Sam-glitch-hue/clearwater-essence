@@ -1,65 +1,42 @@
 
 
-## Add Video/Images Toggle to Media Gallery
+## Fix Broken Gallery Images
 
-### Overview
-Add a toggle button (Videos / Images) to the Media Gallery section. When "Videos" is selected, show the existing YouTube video grid. When "Images" is selected, show a gallery of images sourced from bosonwhitewater.com.
+### Problem
+The `imageData` array in `src/pages/Index.tsx` (lines 625-640) uses incorrect S3 URLs. The current URLs follow the pattern:
+`simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/...`
 
-### Changes (single file: `src/pages/Index.tsx`)
+But the actual URLs on bosonwhitewater.com use:
+`simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/...`
 
-#### 1. Update VideoGallery component to support toggle
+The filenames also include additional prefixes (e.g., `lwvvgouqdyc50s27xe-lsyfvnlmhbt9v6o3sqv-` before the actual filename).
 
-Replace the current `VideoGallery` component with a `MediaGallery` component that includes:
-- A toggle button group (Videos | Images) centered below the section header
-- State management for the active tab (`videos` or `images`)
-- Conditional rendering of either the video grid or image grid
+### Fix
 
-#### 2. Image gallery data
+Replace all 14 image URLs in the `imageData` array (lines 625-640) with the correct URLs extracted from the live bosonwhitewater.com website:
 
-Add an `imageData` array with images sourced from bosonwhitewater.com (using their S3 CDN URLs at 600px resolution for good quality):
+| # | Alt Text | Correct 600px URL |
+|---|----------|-------------------|
+| 1 | BosonWhiteWater Reduce Water Cost | `.../gallery/600/lwvvgouqdyc50s27xe-lsyfvnlmhbt9v6o3sqv-BosonWhiteWater---Reduce-Water-Cost--1-.webp` |
+| 2 | Boson How It Works | `.../600/lui111298xsyqw5jyif-infographic1--1-.webp` |
+| 3 | Boson Water Quality | `.../gallery/600/lwvvgpf7jmrjm1rpjap-lsyfvo3m0xzdhwbwaol-WhatsApp-Image-2023-04-24-at-20.48.36.webp` |
+| 4 | Government of Karnataka Visit | `.../gallery/600/lwvvgnyeyt7c81k1i7p-lsyfvn7ugh1gubjwo15-BAF-site-visit---4.webp` |
+| 5 | BAF Site Visit | `.../gallery/600/lwvvgolw4item9blht-lsyfvneo2wvo1b2f3px-BAF-Site-Visit-5.webp` |
+| 6 | Boson Whitewater System | `.../gallery/600/lwvvgpa0e9drpxkzw3l-lsyfvny13hdv5noja2r-BosonWhitewaterSystem-Post-STP.webp` |
+| 7 | Real-time Water Monitoring | `.../gallery/600/luhxm66piyumlclnk-real.webp` |
+| 8 | OPEX Model | `.../gallery/600/luhxm4x7eclfqegikp-opex.webp` |
+| 9 | Turnkey Solution | `.../gallery/600/lugn9776yebr0cen8y-turn.webp` |
+| 10 | World Class Expertise | `.../gallery/600/luhxm8ta71oiae4jhe5-ww.webp` |
+| 11 | Times of India Coverage | `.../Media/1000/lx33hrinynhyw629yh-5.webp` |
+| 12 | YourStory Coverage | `.../Media/300/lx33hrdvm8kt30neya-4.webp` |
+| 13 | Better India Coverage | `.../Media/300/lx4bsf8neh7trdc5kse-better-india-logo.webp` |
+| 14 | Udaya News Coverage | `.../Media/300/lx33hr8vljsvmwtutmc-3.webp` |
 
-| Image | Alt Text | Source URL |
-|-------|----------|------------|
-| Reduce Water Cost infographic | BosonWhiteWater Reduce Water Cost | `simpleji-websites.s3...gallery/600/...BosonWhiteWater---Reduce-Water-Cost--1-.webp` |
-| How It Works infographic | Boson How It Works | `simpleji-websites.s3...600/...infographic1--1-.webp` |
-| Water Quality report | Boson Water Quality | `simpleji-websites.s3...gallery/600/...WhatsApp-Image-2023-04-24-at-20.48.36.webp` |
-| BP Ravi site visit | Government of Karnataka Visit | `simpleji-websites.s3...gallery/600/...BAF-site-visit---4.webp` |
-| Satish Mallya BAF visit | BAF Site Visit | `simpleji-websites.s3...gallery/600/...BAF-Site-Visit-5.webp` |
-| Post-STP system | Boson Whitewater System | `simpleji-websites.s3...gallery/600/...BosonWhitewaterSystem-Post-STP.webp` |
-| Real-time monitoring | Real-time Water Monitoring | `simpleji-websites.s3...gallery/600/...real.webp` |
-| OPEX model | OPEX Model | `simpleji-websites.s3...gallery/600/...opex.webp` |
-| Turnkey solution | Turnkey Solution | `simpleji-websites.s3...gallery/600/...turn.webp` |
-| World class expertise | World Class Expertise | `simpleji-websites.s3...gallery/600/...ww.webp` |
-| Times of India article | Times of India Coverage | `simpleji-websites.s3...gallery/1000/...paper.webp` |
-| Social Story article | YourStory Coverage | `simpleji-websites.s3...gallery/300/...story.webp` |
-| WRI Cohort | WRI Cities Hub | `simpleji-websites.s3...gallery/300/...hub.webp` |
-| INK WASH | INK at WASH Hyderabad | `simpleji-websites.s3...gallery/300/...INKWASH.webp` |
-
-#### 3. Toggle UI design
-
-- Two side-by-side buttons styled as pills/tabs: "Videos" and "Images"
-- Active state: solid blue background with white text
-- Inactive state: transparent with border, slate text
-- Smooth transition between tabs
-- Icons: Video icon for Videos, Image icon for Images (from Lucide)
-
-#### 4. Image grid layout
-
-- Same 3-column responsive grid as videos (`sm:grid-cols-2 lg:grid-cols-3`)
-- Each image card: white background, rounded corners, shadow, hover effect
-- Images displayed with `object-cover` and `aspect-video` ratio
-- Click-to-enlarge: clicking an image opens it in a Dialog/modal at full size
-- "Load More" button with same pattern as videos (show 6 at a time)
-
-#### 5. Update MediaPage reference
-
-Update the `MediaPage` component to use the new `MediaGallery` component instead of `VideoGallery`.
+All URLs share the base: `https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/`
 
 ### Technical Details
-
-- Add `useState` for `activeTab` ("videos" | "images") defaulting to "videos"
-- Add `useState` for `visibleImageCount` (start at 6, load 6 more)
-- Add a Dialog component for image lightbox (already imported in the project)
-- Use `Image` icon from lucide-react alongside existing `Youtube` icon
-- All image URLs point to bosonwhitewater.com's S3 CDN -- no local assets needed
+- Single file change: `src/pages/Index.tsx`, lines 625-640
+- Replace all 14 `src` strings with the correct URLs
+- Update the last 4 entries (media logos) to use the correct Media folder paths and alt text
+- No structural or logic changes needed
 
