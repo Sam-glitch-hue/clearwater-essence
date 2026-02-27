@@ -608,25 +608,43 @@ const About = () => {
 };
 
 // --- Video Gallery ---
-const VideoGallery = ({ bgClass }: { bgClass: string }) => (
-  <div className={`py-16 ${bgClass} font-sans`}>
-    <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-10 text-slate-900">
-      {[
-        { id: "LXb3EKWsInQ", title: "BWW Process Overview", desc: "Detailed breakdown of the recovery process." },
-        { id: "tgbNymZ7vqY", title: "Impact at RMZ Ecoworld", desc: "Case study of large-scale installation." },
-        { id: "9P8_E-Hl0P0", title: "Visionary Water Awards", desc: "Recognition of our sustainable tech." }
-      ].map((v, i) => (
-        <div key={i} className="bg-white p-4 rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 group">
-          <div className="aspect-video rounded-2xl overflow-hidden mb-4 bg-slate-100 border border-slate-200 shadow-inner">
-            <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${v.id}`} frameBorder="0" allowFullScreen title={v.title}></iframe>
+const videoData = [
+  { id: "7cAWrmj9YpE" }, { id: "c-CfmMEzSCU" }, { id: "7l3q0xCthNA" },
+  { id: "XQzesQzuRWM" }, { id: "q-joqEnCv3A" }, { id: "JShUb8F30Ew" },
+  { id: "wf5EwDNTXpI" }, { id: "QtP1ZX57YLA" }, { id: "OAqyhO6-a5M" },
+  { id: "qH9O8dPmpf0" }, { id: "oQ7mDlBSN34" }, { id: "BnFCn0VvhUY" },
+  { id: "hcze3hxnHQE" }, { id: "JnagvYQ282M" }, { id: "IxmJmVvDeCw" },
+  { id: "OS1Ni2vl3RA" }, { id: "wqm8n_hvWxc" }, { id: "zYUMYMbiN8U" },
+  { id: "HbnCnorFd00" }, { id: "bKk2q-UL_5U" }, { id: "8NzHXXWnP1E" },
+  { id: "QVkehE1G7f8" }, { id: "7mE15jl12JI" }, { id: "d9YqMdmsXgU" },
+  { id: "-IBsrj7KHCs" },
+];
+
+const VideoGallery = ({ bgClass }: { bgClass: string }) => {
+  const [visibleCount, setVisibleCount] = useState(6);
+  const showMore = () => setVisibleCount((prev) => Math.min(prev + 6, videoData.length));
+
+  return (
+    <div className={`py-16 ${bgClass} font-sans`}>
+      <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-slate-900">
+        {videoData.slice(0, visibleCount).map((v, i) => (
+          <div key={v.id} className="bg-white p-3 sm:p-4 rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 group">
+            <div className="aspect-video rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner">
+              <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${v.id}`} frameBorder="0" allowFullScreen title={`Boson White Water Video ${i + 1}`} loading="lazy"></iframe>
+            </div>
           </div>
-          <h3 className="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors uppercase tracking-tight">{v.title}</h3>
-          <p className="text-sm text-slate-500 font-medium mt-1 leading-relaxed">{v.desc}</p>
+        ))}
+      </div>
+      {visibleCount < videoData.length && (
+        <div className="text-center mt-10">
+          <button onClick={showMore} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 uppercase tracking-wide text-sm">
+            Load More Videos <ChevronRight className="inline ml-1" size={16} />
+          </button>
         </div>
-      ))}
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 // --- Media Page ---
 const MediaPage = () => (
