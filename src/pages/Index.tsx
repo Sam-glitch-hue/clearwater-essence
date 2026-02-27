@@ -646,7 +646,21 @@ const MediaGallery = ({ bgClass }: { bgClass: string }) => {
   const [lightboxImg, setLightboxImg] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-    <div className={`py-16 ${bgClass} font-sans`}>
+    <div className={`py-16 ${bgClass} font-sans relative overflow-hidden`}>
+      {/* Watery background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-cyan-100/30 via-blue-50/20 to-transparent"></div>
+        <div className="absolute -top-20 -left-20 w-[600px] h-[600px] bg-cyan-200/20 rounded-full blur-[120px]"></div>
+        <div className="absolute -bottom-32 -right-20 w-[500px] h-[500px] bg-blue-200/25 rounded-full blur-[100px]"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-sky-100/15 rounded-full blur-[80px]"></div>
+        <svg className="absolute bottom-0 left-0 w-full h-32 opacity-[0.07]" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,40 C360,100 720,0 1080,60 C1260,90 1380,30 1440,50 L1440,120 L0,120 Z" fill="currentColor" className="text-blue-600" />
+          <path d="M0,60 C320,10 640,90 960,40 C1200,10 1360,70 1440,40 L1440,120 L0,120 Z" fill="currentColor" className="text-cyan-500" />
+        </svg>
+        <svg className="absolute top-0 left-0 w-full h-24 opacity-[0.05] rotate-180" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,80 C480,20 960,100 1440,40 L1440,120 L0,120 Z" fill="currentColor" className="text-blue-400" />
+        </svg>
+      </div>
       {/* Toggle */}
       <div className="flex justify-center mb-10">
         <div className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
