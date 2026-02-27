@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import heroVideo from '@/assets/hero-water-treatment.mp4';
+import step100Micron from '@/assets/step-100micron.jpg';
+import stepClinoptilolite from '@/assets/step-clinoptilolite.jpg';
+import stepAluminosilicate from '@/assets/step-aluminosilicate.jpg';
+import stepPhCorrection from '@/assets/step-ph-correction.jpg';
+import stepAntiscalant from '@/assets/step-antiscalant.jpg';
+import stepMicron1 from '@/assets/step-micron1.jpg';
+import stepMicron2 from '@/assets/step-micron2.jpg';
+import stepXfrMembrane from '@/assets/step-xfr-membrane.jpg';
+import stepFinalPh from '@/assets/step-final-ph.jpg';
+import stepDisinfection from '@/assets/step-disinfection.jpg';
 import { 
   Droplet, Leaf, ShieldCheck, CheckCircle2, Menu, X, ArrowRight, Settings, 
   Star, Quote, Mail, Activity, Filter, Layers, ThermometerSun, Droplets, TestTube,
@@ -403,17 +413,17 @@ const Clients = ({ bgClass }: { bgClass: string }) => (
 // --- Methodology ---
 const MethodologyPage = () => {
   const methodologyStages = [
-    { Icon: Filter, title: "100 Micron Automatic Filtration", desc: "Automatic filtration system reducing suspended solids and particles up to 100 microns.", img: "https://images.unsplash.com/photo-1611091428036-e0211be1f829?auto=format&fit=crop&q=80&w=800" },
-    { Icon: Layers, title: "Clintoptilolite Filtration", desc: "Clintoptilolite based filtration system comprises of imported media for superior clarity.", img: "https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?auto=format&fit=crop&q=80&w=800" },
-    { Icon: Layers, title: "Alumino Silicate Filter", desc: "Efficient removal of suspended solids present in the waste water using crushed glass beads.", img: "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=800" },
-    { Icon: TestTube, title: "Initial pH Correction", desc: "pH correction system designed to prevent bio-fouling and optimize chemical performance.", img: "https://images.unsplash.com/photo-1532187863486-abf920a789cd?auto=format&fit=crop&q=80&w=800" },
+    { Icon: Filter, title: "100 Micron Automatic Filtration", desc: "Automatic filtration system reducing suspended solids and particles up to 100 microns.", img: step100Micron },
+    { Icon: Layers, title: "Clintoptilolite Filtration", desc: "Clintoptilolite based filtration system comprises of imported media for superior clarity.", img: stepClinoptilolite },
+    { Icon: Layers, title: "Alumino Silicate Filter", desc: "Efficient removal of suspended solids present in the waste water using crushed glass beads.", img: stepAluminosilicate },
+    { Icon: TestTube, title: "Initial pH Correction", desc: "pH correction system designed to prevent bio-fouling and optimize chemical performance.", img: stepPhCorrection },
     { Icon: Wind, title: "Odour Reduction Filter", desc: "Loaded with High IV Activated carbon & MnO2 to eliminate odor and chlorine residuals.", img: "https://images.unsplash.com/photo-1585302558986-0b0e8c0e44d1?auto=format&fit=crop&q=80&w=800" },
-    { Icon: Droplets, title: "Antiscalant Dosing System", desc: "Protects membranes from mineral scaling, extending system life and efficiency.", img: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&q=80&w=800" },
-    { Icon: Filter, title: "Micron Filtration Stage 1", desc: "Precision micron-level particle removal for pre-filtration security of the membranes.", img: "https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&q=80&w=800" },
-    { Icon: Filter, title: "Micron Filtration Stage 2", desc: "Absolute ultra-fine particle elimination before high-recovery modules.", img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=800" },
-    { Icon: Activity, title: "XFR Membrane Filtration", desc: "The core recovery system, reducing dissolved solids and pathogens to zero using advanced membrane technology.", img: "https://images.unsplash.com/photo-1580894894513-541e068a3e2b?auto=format&fit=crop&q=80&w=800" },
-    { Icon: TestTube, title: "Final pH Correction", desc: "Balances pH strictly to meet the BIS 10500:2012 potability standards.", img: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=800" },
-    { Icon: ShieldCheck, title: "Disinfection System", desc: "Final multi-step UV and ORP disinfection guaranteeing absolute microbiological safety.", img: "https://images.unsplash.com/photo-1581093577421-f561a654a353?auto=format&fit=crop&q=80&w=800" }
+    { Icon: Droplets, title: "Antiscalant Dosing System", desc: "Protects membranes from mineral scaling, extending system life and efficiency.", img: stepAntiscalant },
+    { Icon: Filter, title: "Micron Filtration Stage 1", desc: "Precision micron-level particle removal for pre-filtration security of the membranes.", img: stepMicron1 },
+    { Icon: Filter, title: "Micron Filtration Stage 2", desc: "Absolute ultra-fine particle elimination before high-recovery modules.", img: stepMicron2 },
+    { Icon: Activity, title: "XFR Membrane Filtration", desc: "The core recovery system, reducing dissolved solids and pathogens to zero using advanced membrane technology.", img: stepXfrMembrane },
+    { Icon: TestTube, title: "Final pH Correction", desc: "Balances pH strictly to meet the BIS 10500:2012 potability standards.", img: stepFinalPh },
+    { Icon: ShieldCheck, title: "Disinfection System", desc: "Final multi-step UV and ORP disinfection guaranteeing absolute microbiological safety.", img: stepDisinfection }
   ];
 
   const waterQuality = [
