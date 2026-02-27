@@ -623,20 +623,20 @@ const videoData = [
 ];
 
 const imageData = [
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BosonWhiteWater---Reduce-Water-Cost--1-.webp", alt: "BosonWhiteWater Reduce Water Cost" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/infographic1--1-.webp", alt: "Boson How It Works" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/WhatsApp-Image-2023-04-24-at-20.48.36.webp", alt: "Boson Water Quality" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BAF-site-visit---4.webp", alt: "Government of Karnataka Visit" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BAF-Site-Visit-5.webp", alt: "BAF Site Visit" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BosonWhitewaterSystem-Post-STP.webp", alt: "Boson Whitewater System" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/real.webp", alt: "Real-time Water Monitoring" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/opex.webp", alt: "OPEX Model" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/turn.webp", alt: "Turnkey Solution" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/ww.webp", alt: "World Class Expertise" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/1000/paper.webp", alt: "Times of India Coverage" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/300/story.webp", alt: "YourStory Coverage" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/300/hub.webp", alt: "WRI Cities Hub" },
-  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/300/INKWASH.webp", alt: "INK at WASH Hyderabad" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgouqdyc50s27xe-lsyfvnlmhbt9v6o3sqv-BosonWhiteWater---Reduce-Water-Cost--1-.webp", alt: "BosonWhiteWater Reduce Water Cost" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lui111298xsyqw5jyif-infographic1--1-.webp", alt: "Boson How It Works" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgpf7jmrjm1rpjap-lsyfvo3m0xzdhwbwaol-WhatsApp-Image-2023-04-24-at-20.48.36.webp", alt: "Boson Water Quality" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgnyeyt7c81k1i7p-lsyfvn7ugh1gubjwo15-BAF-site-visit---4.webp", alt: "Government of Karnataka Visit" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgolw4item9blht-lsyfvneo2wvo1b2f3px-BAF-Site-Visit-5.webp", alt: "BAF Site Visit" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgpa0e9drpxkzw3l-lsyfvny13hdv5noja2r-BosonWhitewaterSystem-Post-STP.webp", alt: "Boson Whitewater System" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/luhxm66piyumlclnk-real.webp", alt: "Real-time Water Monitoring" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/luhxm4x7eclfqegikp-opex.webp", alt: "OPEX Model" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lugn9776yebr0cen8y-turn.webp", alt: "Turnkey Solution" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/luhxm8ta71oiae4jhe5-ww.webp", alt: "World Class Expertise" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/Media/1000/lx33hrinynhyw629yh-5.webp", alt: "Times of India Coverage" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/Media/300/lx33hrdvm8kt30neya-4.webp", alt: "YourStory Coverage" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/Media/300/lx4bsf8neh7trdc5kse-better-india-logo.webp", alt: "Better India Coverage" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/Media/300/lx33hr8vljsvmwtutmc-3.webp", alt: "Udaya News Coverage" },
 ];
 
 const MediaGallery = ({ bgClass }: { bgClass: string }) => {
