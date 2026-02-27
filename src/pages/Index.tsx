@@ -21,8 +21,10 @@ import {
   Star, Quote, Mail, Activity, Filter, Layers, ThermometerSun, Droplets, TestTube,
   ArrowDownRight, ChevronRight, Wind, BatteryCharging, Building, Briefcase,
   Factory, PiggyBank, Clock, MapPin, Phone, Linkedin, Twitter, Facebook,
-  ArrowUpRight, CheckCircle, Send, MessageSquare, Truck, Youtube
+  ArrowUpRight, CheckCircle, Send, MessageSquare, Truck, Youtube, Video, ImageIcon
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+
 
 // --- ErrorBoundary ---
 class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any }> {
@@ -607,7 +609,7 @@ const About = () => {
   );
 };
 
-// --- Video Gallery ---
+// --- Media Gallery ---
 const videoData = [
   { id: "7cAWrmj9YpE" }, { id: "c-CfmMEzSCU" }, { id: "7l3q0xCthNA" },
   { id: "XQzesQzuRWM" }, { id: "q-joqEnCv3A" }, { id: "JShUb8F30Ew" },
@@ -620,27 +622,114 @@ const videoData = [
   { id: "-IBsrj7KHCs" },
 ];
 
-const VideoGallery = ({ bgClass }: { bgClass: string }) => {
-  const [visibleCount, setVisibleCount] = useState(6);
-  const showMore = () => setVisibleCount((prev) => Math.min(prev + 6, videoData.length));
+const imageData = [
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BosonWhiteWater---Reduce-Water-Cost--1-.webp", alt: "BosonWhiteWater Reduce Water Cost" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/infographic1--1-.webp", alt: "Boson How It Works" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/WhatsApp-Image-2023-04-24-at-20.48.36.webp", alt: "Boson Water Quality" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BAF-site-visit---4.webp", alt: "Government of Karnataka Visit" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BAF-Site-Visit-5.webp", alt: "BAF Site Visit" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/BosonWhitewaterSystem-Post-STP.webp", alt: "Boson Whitewater System" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/real.webp", alt: "Real-time Water Monitoring" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/opex.webp", alt: "OPEX Model" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/turn.webp", alt: "Turnkey Solution" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/600/ww.webp", alt: "World Class Expertise" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/1000/paper.webp", alt: "Times of India Coverage" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/300/story.webp", alt: "YourStory Coverage" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/300/hub.webp", alt: "WRI Cities Hub" },
+  { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/bosonwhitewater.com/gallery/300/INKWASH.webp", alt: "INK at WASH Hyderabad" },
+];
+
+const MediaGallery = ({ bgClass }: { bgClass: string }) => {
+  const [activeTab, setActiveTab] = useState<'videos' | 'images'>('videos');
+  const [visibleVideos, setVisibleVideos] = useState(6);
+  const [visibleImages, setVisibleImages] = useState(6);
+  const [lightboxImg, setLightboxImg] = useState<{ src: string; alt: string } | null>(null);
 
   return (
     <div className={`py-16 ${bgClass} font-sans`}>
-      <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-slate-900">
-        {videoData.slice(0, visibleCount).map((v, i) => (
-          <div key={v.id} className="bg-white p-3 sm:p-4 rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 group">
-            <div className="aspect-video rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner">
-              <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${v.id}`} frameBorder="0" allowFullScreen title={`Boson White Water Video ${i + 1}`} loading="lazy"></iframe>
-            </div>
-          </div>
-        ))}
-      </div>
-      {visibleCount < videoData.length && (
-        <div className="text-center mt-10">
-          <button onClick={showMore} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 uppercase tracking-wide text-sm">
-            Load More Videos <ChevronRight className="inline ml-1" size={16} />
+      {/* Toggle */}
+      <div className="flex justify-center mb-10">
+        <div className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+          <button
+            onClick={() => setActiveTab('videos')}
+            className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wide transition-all ${
+              activeTab === 'videos'
+                ? 'bg-blue-600 text-white shadow-md'
+                : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            <Video size={16} /> Videos
+          </button>
+          <button
+            onClick={() => setActiveTab('images')}
+            className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wide transition-all ${
+              activeTab === 'images'
+                ? 'bg-blue-600 text-white shadow-md'
+                : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            <ImageIcon size={16} /> Images
           </button>
         </div>
+      </div>
+
+      {/* Videos Grid */}
+      {activeTab === 'videos' && (
+        <>
+          <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-slate-900">
+            {videoData.slice(0, visibleVideos).map((v, i) => (
+              <div key={v.id} className="bg-white p-3 sm:p-4 rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 group">
+                <div className="aspect-video rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner">
+                  <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${v.id}`} frameBorder="0" allowFullScreen title={`Boson White Water Video ${i + 1}`} loading="lazy"></iframe>
+                </div>
+              </div>
+            ))}
+          </div>
+          {visibleVideos < videoData.length && (
+            <div className="text-center mt-10">
+              <button onClick={() => setVisibleVideos(prev => Math.min(prev + 6, videoData.length))} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 uppercase tracking-wide text-sm">
+                Load More Videos <ChevronRight className="inline ml-1" size={16} />
+              </button>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Images Grid */}
+      {activeTab === 'images' && (
+        <>
+          <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-slate-900">
+            {imageData.slice(0, visibleImages).map((img, i) => (
+              <div
+                key={i}
+                onClick={() => setLightboxImg(img)}
+                className="bg-white p-3 sm:p-4 rounded-3xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer"
+              >
+                <div className="aspect-video rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-inner">
+                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+                <p className="mt-3 text-sm font-semibold text-slate-700 text-center">{img.alt}</p>
+              </div>
+            ))}
+          </div>
+          {visibleImages < imageData.length && (
+            <div className="text-center mt-10">
+              <button onClick={() => setVisibleImages(prev => Math.min(prev + 6, imageData.length))} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-500 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 uppercase tracking-wide text-sm">
+                Load More Images <ChevronRight className="inline ml-1" size={16} />
+              </button>
+            </div>
+          )}
+
+          {/* Lightbox */}
+          <Dialog open={!!lightboxImg} onOpenChange={() => setLightboxImg(null)}>
+            <DialogContent className="max-w-4xl p-2 bg-black/95 border-none">
+              <DialogTitle className="sr-only">Image Preview</DialogTitle>
+              {lightboxImg && (
+                <img src={lightboxImg.src} alt={lightboxImg.alt} className="w-full h-auto rounded-lg" />
+              )}
+            </DialogContent>
+          </Dialog>
+        </>
       )}
     </div>
   );
@@ -661,7 +750,7 @@ const MediaPage = () => (
       </div>
     </div>
     <div className="bg-slate-50/90 py-12 md:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><VideoGallery bgClass="bg-transparent" /></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><MediaGallery bgClass="bg-transparent" /></div>
     </div>
   </div>
 );
