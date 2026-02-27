@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import heroVideo from '@/assets/hero-water-treatment.mp4';
 import { 
   Droplet, Leaf, ShieldCheck, CheckCircle2, Menu, X, ArrowRight, Settings, 
   Star, Quote, Mail, Activity, Filter, Layers, ThermometerSun, Droplets, TestTube,
@@ -131,7 +132,7 @@ const Hero = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => (
   <div className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
     <div className="absolute inset-0 z-0 pointer-events-none">
       <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
-        <source src="https://videos.pexels.com/video-files/5532765/5532765-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        <source src={heroVideo} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-blue-950/90 via-slate-900/60 to-blue-950/90"></div>
     </div>
