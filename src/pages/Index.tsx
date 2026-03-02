@@ -19,9 +19,11 @@ import stepDisinfection from '@/assets/step-disinfection.jpg';
 import { 
   Droplet, Leaf, ShieldCheck, CheckCircle2, Menu, X, ArrowRight, Settings, 
   Star, Quote, Mail, Activity, Filter, Layers, ThermometerSun, Droplets, TestTube,
-  ArrowDownRight, ChevronRight, Wind, BatteryCharging, Building, Briefcase,
+  ArrowDownRight, ChevronRight, ChevronDown, Wind, BatteryCharging, Building, Briefcase,
   Factory, PiggyBank, Clock, MapPin, Phone, Linkedin, Twitter, Facebook,
-  ArrowUpRight, CheckCircle, Send, MessageSquare, Truck, Youtube, Video, ImageIcon
+  ArrowUpRight, CheckCircle, Send, MessageSquare, Truck, Youtube, Video, ImageIcon,
+  Warehouse, FlaskConical, Wifi, Package, MessageCircle, BarChart3, Gauge, Zap,
+  ShoppingBag, Wrench, Users, Globe, Target, TrendingUp, Beaker
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
@@ -95,7 +97,12 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
 // --- Navbar ---
 const Navbar = ({ currentPage, setCurrentPage }: { currentPage: string; setCurrentPage: (p: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const handleNav = (page: string) => { setCurrentPage(page); setIsOpen(false); window.scrollTo(0, 0); };
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const handleNav = (page: string) => { setCurrentPage(page); setIsOpen(false); setSolutionsOpen(false); setMobileSolutionsOpen(false); window.scrollTo(0, 0); };
+
+  const solutionsPages = ['solutions', 'apartments', 'malls', 'industries'];
+  const isSolutionsActive = solutionsPages.includes(currentPage);
 
   return (
     <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 font-sans">
@@ -109,13 +116,34 @@ const Navbar = ({ currentPage, setCurrentPage }: { currentPage: string; setCurre
             </span>
           </div>
           <div className="hidden lg:flex items-center space-x-8 text-sm xl:text-base font-sans">
-            {[
-              { key: 'home', label: 'Home' }, { key: 'about', label: 'About Us' },
-              { key: 'methodology', label: 'How It Works' }, { key: 'case-studies', label: 'Testimonials' },
-              { key: 'media', label: 'Media' }, { key: 'contact', label: 'Contact' }
-            ].map(item => (
-              <button key={item.key} onClick={() => handleNav(item.key)} className={`transition-colors font-semibold ${currentPage === item.key ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>{item.label}</button>
-            ))}
+            <button onClick={() => handleNav('home')} className={`transition-colors font-semibold ${currentPage === 'home' ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>Home</button>
+            <button onClick={() => handleNav('about')} className={`transition-colors font-semibold ${currentPage === 'about' ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>About Us</button>
+            
+            {/* Solutions Dropdown */}
+            <div className="relative" onMouseEnter={() => setSolutionsOpen(true)} onMouseLeave={() => setSolutionsOpen(false)}>
+              <button className={`transition-colors font-semibold flex items-center gap-1 ${isSolutionsActive ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>
+                Solutions <ChevronDown size={14} className={`transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <div className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200 ${solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-2 min-w-[200px]">
+                  {[
+                    { key: 'solutions', label: 'Overview', icon: Globe },
+                    { key: 'apartments', label: 'Apartments', icon: Building },
+                    { key: 'malls', label: 'Malls', icon: ShoppingBag },
+                    { key: 'industries', label: 'Industries', icon: Factory },
+                  ].map(item => (
+                    <button key={item.key} onClick={() => handleNav(item.key)} className={`w-full text-left px-4 py-3 rounded-xl font-semibold text-sm transition-colors flex items-center gap-3 ${currentPage === item.key ? 'text-blue-700 bg-blue-50' : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600'}`}>
+                      <item.icon size={16} /> {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <button onClick={() => handleNav('methodology')} className={`transition-colors font-semibold ${currentPage === 'methodology' ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>How It Works</button>
+            <button onClick={() => handleNav('case-studies')} className={`transition-colors font-semibold ${currentPage === 'case-studies' ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>Testimonials</button>
+            <button onClick={() => handleNav('media')} className={`transition-colors font-semibold ${currentPage === 'media' ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>Media</button>
+            <button onClick={() => handleNav('contact')} className={`transition-colors font-semibold ${currentPage === 'contact' ? 'text-blue-700 underline underline-offset-8 decoration-2' : 'text-slate-600 hover:text-blue-600'}`}>Contact</button>
             <button onClick={() => handleNav('booking')} className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">Book Tanker</button>
           </div>
           <div className="flex items-center lg:hidden">
@@ -123,16 +151,35 @@ const Navbar = ({ currentPage, setCurrentPage }: { currentPage: string; setCurre
           </div>
         </div>
       </div>
-      <div className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 ${isOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-4 pt-2 pb-4 space-y-1 flex flex-col shadow-inner text-sm font-sans">
-          {[
-            { key: 'home', label: 'Home' }, { key: 'about', label: 'About Us' },
-            { key: 'methodology', label: 'How It Works' }, { key: 'case-studies', label: 'Testimonials' },
-            { key: 'media', label: 'Media' }, { key: 'contact', label: 'Contact Us' },
-            { key: 'booking', label: 'Book Water Tanker' }
-          ].map(item => (
-            <button key={item.key} onClick={() => handleNav(item.key)} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === item.key ? 'text-blue-700 bg-blue-50/50' : item.key === 'booking' ? 'text-blue-600 hover:bg-blue-50' : 'text-slate-600 hover:bg-slate-50'}`}>{item.label}</button>
-          ))}
+          <button onClick={() => handleNav('home')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === 'home' ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>Home</button>
+          <button onClick={() => handleNav('about')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === 'about' ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>About Us</button>
+          
+          {/* Mobile Solutions Accordion */}
+          <div>
+            <button onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)} className={`w-full text-left px-3 py-3 rounded-lg font-bold transition-colors flex items-center justify-between ${isSolutionsActive ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>
+              Solutions <ChevronDown size={16} className={`transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${mobileSolutionsOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className="pl-6 space-y-1 py-1">
+                {[
+                  { key: 'solutions', label: 'Overview' },
+                  { key: 'apartments', label: 'Apartments' },
+                  { key: 'malls', label: 'Malls' },
+                  { key: 'industries', label: 'Industries' },
+                ].map(item => (
+                  <button key={item.key} onClick={() => handleNav(item.key)} className={`w-full text-left px-3 py-2.5 rounded-lg font-semibold text-sm transition-colors ${currentPage === item.key ? 'text-blue-700 bg-blue-50/50' : 'text-slate-500 hover:bg-slate-50'}`}>{item.label}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <button onClick={() => handleNav('methodology')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === 'methodology' ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>How It Works</button>
+          <button onClick={() => handleNav('case-studies')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === 'case-studies' ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>Testimonials</button>
+          <button onClick={() => handleNav('media')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === 'media' ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>Media</button>
+          <button onClick={() => handleNav('contact')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors ${currentPage === 'contact' ? 'text-blue-700 bg-blue-50/50' : 'text-slate-600 hover:bg-slate-50'}`}>Contact Us</button>
+          <button onClick={() => handleNav('booking')} className={`text-left px-3 py-3 rounded-lg font-bold transition-colors text-blue-600 hover:bg-blue-50`}>Book Water Tanker</button>
         </div>
       </div>
     </nav>
@@ -1066,6 +1113,492 @@ const ContactPage = () => {
   );
 };
 
+// --- Solutions Page ---
+const SolutionsPage = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => (
+  <div className="relative overflow-hidden pt-16 sm:pt-20 font-sans text-slate-900">
+    {/* Hero */}
+    <div className="relative py-16 sm:py-24 bg-blue-950/60 backdrop-blur-sm overflow-hidden border-b border-blue-900/30 text-white">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="inline-flex items-center space-x-2 bg-white/10 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md border border-white/20 shadow-lg">
+          <Target size={14} className="text-cyan-400" />
+          <span className="text-xs sm:text-sm font-bold text-cyan-300 uppercase tracking-widest">Our Solutions</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight uppercase leading-tight">Sustainable Water Solutions</h1>
+        <p className="text-base sm:text-xl text-blue-50 max-w-3xl mx-auto leading-relaxed font-medium">Custom-engineered water recycling solutions for buildings with Sewage Treatment Plants (STPs). We convert your treated wastewater into potable-grade water.</p>
+      </div>
+    </div>
+
+    {/* Intro */}
+    <div className="py-16 md:py-24 bg-white/90 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 uppercase tracking-tight">The Water Cycle Reimagined</h2>
+          <p className="text-lg text-slate-600 leading-relaxed font-medium">Every building with an STP generates treated water that's typically drained or underutilized. Boson White Water intercepts this waste stream and transforms it into a valuable resource — potable water at a fraction of the cost.</p>
+        </div>
+
+        {/* Flowchart */}
+        <div className="bg-slate-50 rounded-[2rem] p-6 sm:p-10 border border-slate-200 shadow-sm mb-16">
+          <h3 className="text-2xl font-extrabold text-center mb-10 uppercase tracking-tight">Water Flow Cycle</h3>
+          
+          {/* Current Flow */}
+          <div className="mb-10">
+            <p className="text-xs font-bold text-red-500 uppercase tracking-widest mb-4 text-center">Current Scenario (Without Boson)</p>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+              <div className="bg-white px-5 py-4 rounded-2xl border border-slate-200 shadow-sm text-center min-w-[160px]">
+                <Building size={24} className="text-slate-500 mx-auto mb-2" />
+                <p className="text-sm font-bold text-slate-700">Apartment / Mall / Industry</p>
+              </div>
+              <ArrowRight className="text-slate-400 shrink-0 rotate-90 md:rotate-0" size={20} />
+              <div className="bg-white px-5 py-4 rounded-2xl border border-slate-200 shadow-sm text-center min-w-[160px]">
+                <Settings size={24} className="text-slate-500 mx-auto mb-2" />
+                <p className="text-sm font-bold text-slate-700">STP Treatment</p>
+              </div>
+              <ArrowRight className="text-slate-400 shrink-0 rotate-90 md:rotate-0" size={20} />
+              <div className="bg-red-50 px-5 py-4 rounded-2xl border border-red-200 shadow-sm text-center min-w-[160px]">
+                <X size={24} className="text-red-500 mx-auto mb-2" />
+                <p className="text-sm font-bold text-red-600">80% Water Drained</p>
+                <p className="text-xs text-slate-500 mt-1">Only 20% for Flushing & Garden</p>
+              </div>
+            </div>
+          </div>
+
+          {/* With Boson */}
+          <div>
+            <p className="text-xs font-bold text-cyan-600 uppercase tracking-widest mb-4 text-center">With Boson White Water</p>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+              <div className="bg-white px-5 py-4 rounded-2xl border border-slate-200 shadow-sm text-center min-w-[160px]">
+                <Droplets size={24} className="text-blue-500 mx-auto mb-2" />
+                <p className="text-sm font-bold text-slate-700">STP Treated Water</p>
+              </div>
+              <ArrowRight className="text-cyan-500 shrink-0 rotate-90 md:rotate-0" size={20} />
+              <div className="bg-cyan-50 px-5 py-4 rounded-2xl border border-cyan-200 shadow-sm text-center min-w-[160px]">
+                <Zap size={24} className="text-cyan-600 mx-auto mb-2" />
+                <p className="text-sm font-bold text-cyan-700">Boson 11-Stage System</p>
+              </div>
+              <ArrowRight className="text-cyan-500 shrink-0 rotate-90 md:rotate-0" size={20} />
+              <div className="bg-blue-50 px-5 py-4 rounded-2xl border border-blue-200 shadow-sm text-center min-w-[160px]">
+                <CheckCircle size={24} className="text-blue-600 mx-auto mb-2" />
+                <p className="text-sm font-bold text-blue-700">Potable Water</p>
+                <p className="text-xs text-slate-500 mt-1">Back to Building Use</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Monitoring */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          <div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold mb-6 uppercase tracking-tight">Real-Time IoT Monitoring</h3>
+            <p className="text-slate-600 text-lg leading-relaxed font-medium mb-6">Our systems come equipped with IoT sensors that continuously monitor water quality parameters, ensuring consistent output quality 24/7.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: "TDS", value: "< 100 ppm", icon: Gauge },
+                { label: "Flow Rate", value: "Real-time", icon: Activity },
+                { label: "pH Level", value: "6.5 - 8.5", icon: Beaker },
+                { label: "Turbidity", value: "< 1 NTU", icon: Droplet },
+              ].map((param, i) => (
+                <div key={i} className="bg-slate-900 text-white p-5 rounded-2xl border border-slate-800 text-center">
+                  <param.icon size={20} className="text-cyan-400 mx-auto mb-2" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">{param.label}</p>
+                  <p className="text-sm font-bold text-cyan-400">{param.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-200 aspect-video">
+            <img src="https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/luhxm66piyumlclnk-real.webp" alt="IoT Monitoring Dashboard" className="w-full h-full object-cover" onError={(e) => handleImgError(e, 'IoT+Monitoring')} />
+          </div>
+        </div>
+
+        {/* System Images */}
+        <div className="mb-16">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-center mb-10 uppercase tracking-tight">Our Systems in Action</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgpa0e9drpxkzw3l-lsyfvny13hdv5noja2r-BosonWhitewaterSystem-Post-STP.webp", alt: "Boson System Post-STP" },
+              { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lui111298xsyqw5jyif-infographic1--1-.webp", alt: "System Infographic" },
+              { src: "https://simpleji-websites.s3.ap-south-1.amazonaws.com/images-resized/web63-78515f08-639a-473d-bc17-66996ee517e8/gallery/600/lwvvgpf7jmrjm1rpjap-lsyfvo3m0xzdhwbwaol-WhatsApp-Image-2023-04-24-at-20.48.36.webp", alt: "System Installation" },
+            ].map((img, i) => (
+              <div key={i} className="rounded-2xl overflow-hidden border border-slate-200 shadow-lg aspect-video">
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onError={(e) => handleImgError(e, 'Boson+System')} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Solution Cards */}
+        <div>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-center mb-10 uppercase tracking-tight">Solutions by Segment</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { key: 'apartments', title: "Apartments", desc: "Recharge groundwater, reuse STP water for flushing and gardening, achieve water self-sufficiency.", Icon: Building, img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800" },
+              { key: 'malls', title: "Shopping Malls", desc: "Zero capital investment, maintenance-free operation, improved cooling tower efficiency.", Icon: ShoppingBag, img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" },
+              { key: 'industries', title: "Industries", desc: "White Water and DM Water grades for cooling, boilers, manufacturing processes.", Icon: Factory, img: "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=800" },
+            ].map((card, idx) => (
+              <div key={idx} onClick={() => { setCurrentPage(card.key); window.scrollTo(0, 0); }} className="cursor-pointer group bg-white rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+                <div className="aspect-video overflow-hidden relative">
+                  <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onError={(e) => handleImgError(e, card.title)} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+                    <card.Icon size={20} />
+                    <span className="font-bold uppercase tracking-tight">{card.title}</span>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">{card.desc}</p>
+                  <span className="text-blue-600 font-bold text-sm flex items-center gap-2 uppercase tracking-widest group-hover:gap-3 transition-all">Learn More <ArrowRight size={14} /></span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// --- Apartments Page ---
+const ApartmentsPage = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => (
+  <div className="relative overflow-hidden pt-16 sm:pt-20 font-sans text-slate-900">
+    {/* Hero */}
+    <div className="relative py-16 sm:py-24 bg-blue-950/60 backdrop-blur-sm overflow-hidden border-b border-blue-900/30 text-white">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="inline-flex items-center space-x-2 bg-white/10 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md border border-white/20 shadow-lg">
+          <Building size={14} className="text-cyan-400" />
+          <span className="text-xs sm:text-sm font-bold text-cyan-300 uppercase tracking-widest">Residential</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight uppercase leading-tight">Apartments</h1>
+        <p className="text-base sm:text-xl text-blue-50 max-w-3xl mx-auto leading-relaxed font-medium">Sustainable water solutions for residential complexes to achieve water self-sufficiency and reduce dependency on external sources.</p>
+      </div>
+    </div>
+
+    <div className="py-16 md:py-24 bg-white/90 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Problem */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 uppercase tracking-tight">The Growing Challenge</h2>
+            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-8">With rapid vertical growth in urban India, apartment complexes face increasing water stress. Most STPs in residential buildings treat water that is simply drained — a massive waste of a precious resource.</p>
+            
+            <h3 className="text-xl font-bold mb-4 uppercase tracking-tight">Our Solutions</h3>
+            <div className="space-y-4">
+              {[
+                "Upgrade STP water to potable quality standards",
+                "Optimize garden and landscaping water usage",
+                "Implement shallow well recharge systems",
+                "Enable groundwater recharge practices",
+                "Achieve complete self-sufficiency in water management"
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <CheckCircle size={20} className="text-cyan-500 shrink-0 mt-0.5" />
+                  <span className="text-slate-700 font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-200 aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200" alt="Modern Apartment Complex" className="w-full h-full object-cover" onError={(e) => handleImgError(e, 'Apartment+Complex')} />
+          </div>
+        </div>
+
+        {/* Eligibility */}
+        <div className="bg-slate-50 rounded-[2rem] p-8 sm:p-12 border border-slate-200 shadow-sm mb-20">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-center mb-10 uppercase tracking-tight">Eligibility Criteria</h3>
+          <div className="grid sm:grid-cols-3 gap-8">
+            {[
+              { icon: Droplets, title: "50+ KLD STPs", desc: "Sewage Treatment Plants with 50,000+ litres per day capacity" },
+              { icon: TrendingUp, title: "Underutilized Treated Water", desc: "Significant portion of STP output being drained or wasted" },
+              { icon: Building, title: "150+ Units", desc: "Apartment complexes with 150 or more residential units" },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                  <item.icon size={28} className="text-blue-600" />
+                </div>
+                <h4 className="font-bold text-lg mb-2 uppercase tracking-tight">{item.title}</h4>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Current Installations */}
+        <div className="text-center mb-16">
+          <h3 className="text-2xl sm:text-3xl font-extrabold mb-10 uppercase tracking-tight">Current Installations</h3>
+          <div className="flex flex-wrap justify-center gap-8 opacity-80 font-bold uppercase tracking-widest text-xs">
+            {["Puravankara", "Brigade Group", "Sobha Developers"].map(name => (
+              <span key={name} className="px-8 py-4 bg-white rounded-xl shadow-sm border border-slate-100 transition-all hover:opacity-100 hover:shadow-md">{name}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <button onClick={() => { setCurrentPage('contact'); window.scrollTo(0, 0); }} className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] inline-flex items-center">
+            Get a Free Assessment <ArrowRight className="ml-2" size={20} />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// --- Malls Page ---
+const MallsPage = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => (
+  <div className="relative overflow-hidden pt-16 sm:pt-20 font-sans text-slate-900">
+    {/* Hero */}
+    <div className="relative py-16 sm:py-24 bg-blue-950/60 backdrop-blur-sm overflow-hidden border-b border-blue-900/30 text-white">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="inline-flex items-center space-x-2 bg-white/10 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md border border-white/20 shadow-lg">
+          <ShoppingBag size={14} className="text-cyan-400" />
+          <span className="text-xs sm:text-sm font-bold text-cyan-300 uppercase tracking-widest">Commercial</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight uppercase leading-tight">Shopping Malls</h1>
+        <p className="text-base sm:text-xl text-blue-50 max-w-3xl mx-auto leading-relaxed font-medium">Transform your mall's water infrastructure with zero capital investment and maintenance-free operations.</p>
+      </div>
+    </div>
+
+    <div className="py-16 md:py-24 bg-white/90 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Problem & Support */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 uppercase tracking-tight">The Mall Water Challenge</h2>
+            <p className="text-lg text-slate-600 leading-relaxed font-medium mb-6">Shopping malls consume vast quantities of water for cooling towers, HVAC systems, fountains, restrooms, and landscaping. Conventional water sources are expensive and unsustainable.</p>
+            <p className="text-lg text-slate-600 leading-relaxed font-medium">Boson White Water provides a turnkey solution — converting your STP treated water into potable-grade water that dramatically reduces cooling tower chemical usage and extends equipment life.</p>
+          </div>
+          <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-200 aspect-[4/3]">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Shopping Mall" className="w-full h-full object-cover" onError={(e) => handleImgError(e, 'Shopping+Mall')} />
+          </div>
+        </div>
+
+        {/* Benefits */}
+        <div className="mb-20">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-center mb-10 uppercase tracking-tight">Key Benefits</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: PiggyBank, title: "Zero Capital Investment", desc: "No upfront costs — pay only for the water you use." },
+              { icon: Wrench, title: "Maintenance-Free", desc: "Boson handles all installation, operation, and maintenance." },
+              { icon: Droplets, title: "Consistent Water Supply", desc: "Reliable, high-quality water available 24/7." },
+              { icon: FlaskConical, title: "65% Chemical Reduction", desc: "Drastically reduce cooling tower chemical treatments." },
+              { icon: Clock, title: "Extended Equipment Life", desc: "Prolong cooling tower and chiller lifespan significantly." },
+              { icon: TrendingUp, title: "Lower Water Costs", desc: "Reduce water purchase expenditure substantially." },
+              { icon: Users, title: "Better Customer Experience", desc: "Clean restrooms and facilities enhance visitor satisfaction." },
+              { icon: Droplet, title: "Pristine Fountains", desc: "Crystal-clear water for decorative fountains and features." },
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all text-center">
+                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100">
+                  <item.icon size={24} className="text-blue-600" />
+                </div>
+                <h4 className="font-bold text-sm mb-2 uppercase tracking-tight">{item.title}</h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Requirements */}
+        <div className="bg-slate-50 rounded-[2rem] p-8 sm:p-12 border border-slate-200 shadow-sm mb-20">
+          <h3 className="text-2xl font-extrabold text-center mb-8 uppercase tracking-tight">Requirements</h3>
+          <div className="grid sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            {[
+              { icon: MapPin, title: "Space Near STP", desc: "Dedicated space adjacent to the STP for system installation" },
+              { icon: Settings, title: "Plumbing Lines", desc: "Inlet and outlet plumbing connections from STP to system" },
+              { icon: Zap, title: "3-Phase Power", desc: "Continuous 3-phase power supply for system operation" },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 shadow-sm">
+                  <item.icon size={24} className="text-blue-600" />
+                </div>
+                <h4 className="font-bold mb-2 uppercase tracking-tight">{item.title}</h4>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Current Clients */}
+        <div className="text-center mb-16">
+          <h3 className="text-2xl sm:text-3xl font-extrabold mb-10 uppercase tracking-tight">Current Clients</h3>
+          <div className="flex flex-wrap justify-center gap-8 opacity-80 font-bold uppercase tracking-widest text-xs">
+            {["Lulu Mall", "RMZ Corp"].map(name => (
+              <span key={name} className="px-8 py-4 bg-white rounded-xl shadow-sm border border-slate-100 transition-all hover:opacity-100 hover:shadow-md">{name}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <button onClick={() => { setCurrentPage('contact'); window.scrollTo(0, 0); }} className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] inline-flex items-center">
+            Schedule a Site Visit <ArrowRight className="ml-2" size={20} />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// --- Industries Page ---
+const IndustriesPage = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => (
+  <div className="relative overflow-hidden pt-16 sm:pt-20 font-sans text-slate-900">
+    {/* Hero */}
+    <div className="relative py-16 sm:py-24 bg-blue-950/60 backdrop-blur-sm overflow-hidden border-b border-blue-900/30 text-white">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="inline-flex items-center space-x-2 bg-white/10 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md border border-white/20 shadow-lg">
+          <Factory size={14} className="text-cyan-400" />
+          <span className="text-xs sm:text-sm font-bold text-cyan-300 uppercase tracking-widest">Industrial</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight uppercase leading-tight">Industries</h1>
+        <p className="text-base sm:text-xl text-blue-50 max-w-3xl mx-auto leading-relaxed font-medium">Treated industrial water in two grades — White Water and DM Water — for apartments, commercial parks, and industries.</p>
+      </div>
+    </div>
+
+    <div className="py-16 md:py-24 bg-white/90 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Customer Segments */}
+        <div className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-10 uppercase tracking-tight">Customer Segments</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { Icon: Building, title: "Apartments", desc: "Large residential complexes requiring sustainable water for flushing, gardening, and domestic use.", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800" },
+              { Icon: Briefcase, title: "Commercial Parks", desc: "IT parks, business centres, and tech campuses needing reliable water for cooling towers and operations.", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" },
+              { Icon: Factory, title: "Industries", desc: "Manufacturing plants, warehouses, and processing facilities requiring DM water and treated water.", img: "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=800" },
+            ].map((seg, i) => (
+              <div key={i} className="group relative rounded-[2rem] overflow-hidden aspect-[4/5] sm:aspect-square shadow-lg border border-slate-200/50">
+                <img src={seg.img} alt={seg.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onError={(e) => handleImgError(e, seg.title)} />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent"></div>
+                <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
+                  <div className="flex items-center gap-2 mb-3">
+                    <seg.Icon size={20} className="text-cyan-400" />
+                    <h3 className="text-xl font-bold text-white uppercase tracking-tight">{seg.title}</h3>
+                  </div>
+                  <p className="text-blue-50 font-medium leading-relaxed text-sm">{seg.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Product Types */}
+        <div className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-10 uppercase tracking-tight">Product Types</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-8 sm:p-10 rounded-[2rem] border border-cyan-200 shadow-sm hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-6 border border-cyan-200">
+                <Droplets size={32} className="text-cyan-600" />
+              </div>
+              <h3 className="text-2xl font-extrabold mb-3 uppercase tracking-tight text-cyan-800">White Water</h3>
+              <p className="text-cyan-700 font-medium leading-relaxed mb-4">Treated recycled water for general use — cooling towers, gardening, flushing, and landscaping.</p>
+              <div className="space-y-2">
+                {["TDS < 100 ppm", "pH 6.5 - 8.5", "Zero Turbidity", "BIS 10500 Compliant"].map((spec, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm"><CheckCircle size={14} className="text-cyan-500" /><span className="text-slate-700 font-medium">{spec}</span></div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 sm:p-10 rounded-[2rem] border border-blue-200 shadow-sm hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 border border-blue-200">
+                <FlaskConical size={32} className="text-blue-600" />
+              </div>
+              <h3 className="text-2xl font-extrabold mb-3 uppercase tracking-tight text-blue-800">DM Water</h3>
+              <p className="text-blue-700 font-medium leading-relaxed mb-4">Demineralized water for industrial processes — boilers, manufacturing, electroplating, and precision work.</p>
+              <div className="space-y-2">
+                {["TDS < 10 ppm", "Ultra-Pure Grade", "Scale-Free", "Industrial Standard"].map((spec, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm"><CheckCircle size={14} className="text-blue-500" /><span className="text-slate-700 font-medium">{spec}</span></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Clean Flowchart */}
+        <div className="bg-slate-50 rounded-[2rem] p-6 sm:p-10 border border-slate-200 shadow-sm mb-20">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-center mb-10 uppercase tracking-tight">Operational Flow</h3>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+            {[
+              { Icon: Warehouse, title: "Source", sub: "STP / Raw Water" },
+              { Icon: Settings, title: "Treat", sub: "Boson System" },
+              { Icon: Beaker, title: "Test", sub: "Quality Check" },
+              { Icon: Package, title: "Store", sub: "Treated Water Tank" },
+              { Icon: Truck, title: "Deliver", sub: "Tanker or Bulk Supply" },
+            ].map((step, i, arr) => (
+              <React.Fragment key={i}>
+                <div className="bg-white px-6 py-5 rounded-2xl border border-slate-200 shadow-sm text-center min-w-[140px] hover:shadow-lg hover:-translate-y-1 transition-all">
+                  <step.Icon size={28} className="text-blue-600 mx-auto mb-2" />
+                  <p className="text-sm font-bold text-slate-800 uppercase tracking-tight">{step.title}</p>
+                  <p className="text-xs text-slate-500 font-medium mt-1">{step.sub}</p>
+                </div>
+                {i < arr.length - 1 && <ArrowRight className="text-cyan-500 shrink-0 rotate-90 md:rotate-0" size={22} />}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* Tanker Booking Flow */}
+        <div className="mb-20">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-10 uppercase tracking-tight">Tanker Booking Flow</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { step: "01", Icon: MessageCircle, title: "Request", desc: "Submit your order via WhatsApp or Email with volume and delivery details.", color: "text-cyan-600 bg-cyan-50 border-cyan-200" },
+              { step: "02", Icon: CheckCircle, title: "Confirmation", desc: "Receive instant confirmation with delivery schedule and pricing.", color: "text-blue-600 bg-blue-50 border-blue-200" },
+              { step: "03", Icon: Truck, title: "Dispatch", desc: "GPS-tracked tanker dispatched from nearest Boson facility.", color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
+              { step: "04", Icon: CheckCircle2, title: "Delivered", desc: "Quality-assured water delivered with digital receipt and certificate.", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-6 sm:p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all relative overflow-hidden">
+                <div className="absolute top-4 right-4 text-5xl font-black text-slate-100">{item.step}</div>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${item.color}`}>
+                  <item.Icon size={24} />
+                </div>
+                <h4 className="font-bold text-lg mb-2 uppercase tracking-tight relative z-10">{item.title}</h4>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed relative z-10">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* IoT Monitoring */}
+        <div className="bg-slate-900 rounded-[2rem] p-8 sm:p-12 mb-20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+          <div className="relative z-10">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-10 uppercase tracking-tight">IoT Monitoring Dashboard</h3>
+            <p className="text-blue-100 text-center max-w-2xl mx-auto mb-10 font-medium leading-relaxed">Every Boson system is equipped with real-time IoT sensors. Monitor water quality parameters remotely with our digital dashboard.</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {[
+                { label: "TDS", value: "68 ppm", trend: "↓ 12%", Icon: Gauge },
+                { label: "pH Level", value: "7.2", trend: "Stable", Icon: Beaker },
+                { label: "Flow Rate", value: "4.2 m³/hr", trend: "↑ Active", Icon: Activity },
+                { label: "Turbidity", value: "0.3 NTU", trend: "Excellent", Icon: Droplet },
+              ].map((param, i) => (
+                <div key={i} className="bg-white/10 backdrop-blur-sm p-5 rounded-2xl border border-white/10 text-center">
+                  <param.Icon size={20} className="text-cyan-400 mx-auto mb-2" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">{param.label}</p>
+                  <p className="text-xl font-extrabold text-white mb-1">{param.value}</p>
+                  <p className="text-xs text-cyan-400 font-bold">{param.trend}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://wa.me/918073182542?text=Hi%2C%20I%20would%20like%20to%20book%20a%20water%20tanker" target="_blank" rel="noreferrer" className="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#20BA5C] transition-all shadow-lg inline-flex items-center justify-center">
+            <MessageSquare className="mr-2" size={20} /> Book via WhatsApp
+          </a>
+          <button onClick={() => { setCurrentPage('contact'); window.scrollTo(0, 0); }} className="bg-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] inline-flex items-center justify-center">
+            <Mail className="mr-2" size={20} /> Email Inquiry
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 // --- Footer ---
 const Footer = ({ setCurrentPage }: { setCurrentPage: (p: string) => void }) => (
   <footer className="relative bg-slate-950 text-slate-300 pt-32 pb-8 border-t border-slate-800 font-sans mt-24">
@@ -1179,6 +1712,10 @@ const Index = () => {
           {currentPage === 'media' && <MediaPage />}
           {currentPage === 'contact' && <ContactPage />}
           {currentPage === 'booking' && <BookingPage />}
+          {currentPage === 'solutions' && <SolutionsPage setCurrentPage={setCurrentPage} />}
+          {currentPage === 'apartments' && <ApartmentsPage setCurrentPage={setCurrentPage} />}
+          {currentPage === 'malls' && <MallsPage setCurrentPage={setCurrentPage} />}
+          {currentPage === 'industries' && <IndustriesPage setCurrentPage={setCurrentPage} />}
           <Footer setCurrentPage={setCurrentPage} />
           <WhatsAppButton />
         </div>
